@@ -1,0 +1,16 @@
+﻿@model IEnumerable<E_Commerce.Models.Test>
+@using GridMvc.Html;
+
+
+@{
+    ViewBag.Title = "List2";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>List2</h2>
+
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(c => c.TestText).Titled("Test Text").Filterable(true);
+    columns.Add(c => c.User).Titled("User").Filterable(true);
+}).WithPaging(10).Sortable(true)

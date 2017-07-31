@@ -1,0 +1,62 @@
+﻿@model IEnumerable<E_Commerce.Models.SubMenuHeading>
+@using PagedList;
+@using PagedList.Mvc;
+@using GridMvc.Html;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@Html.Grid(Model).Columns(columns =>
+{
+
+    columns.Add(c => c.SubMenuHeadingID).Titled("SubMenuHeadingID").Filterable(true);
+    columns.Add(c => c.SubMenuHeadingText).Titled("SubMenuHeadingID").Filterable(true);
+    columns.Add(c => c.MainMenuText).Titled("SubMenuHeadingID").Filterable(true);
+    columns.Add().Sanitized(false).Encoded(false).RenderValueAs(o => Html.ActionLink("Edit", "Edit", new { id = o.SubMenuHeadingID }, new { @class = "btn btn-success" })).Titled("Edit");
+    columns.Add().Sanitized(false).Encoded(false).RenderValueAs(o => Html.ActionLink("Delete", "Delete", new { id = o.SubMenuHeadingID }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure To Delete')" })).Titled("Delete");
+
+}).WithPaging(10);
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SubMenuHeadingText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MainMenuText)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubMenuHeadingText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MainMenuText)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SubMenuHeadingID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SubMenuHeadingID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SubMenuHeadingID })
+            </td>
+        </tr>
+    }
+</table>
